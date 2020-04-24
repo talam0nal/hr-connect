@@ -23,5 +23,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('tickets', 'TicketController');
+	Route::resource('messages', 'MessageController');
 });
 
