@@ -22,7 +22,7 @@ class MessageController extends Controller
             'user_id'   => \Auth::id(),
             'ticket_id' => $request->ticket_id,
         ]);
-        return redirect()->route('home')->with('success', 'Ваше сообщение успешно отрпавлено');
+        return redirect()->route('tickets.show', $request->ticket_id)->with('success', 'Ваше сообщение успешно отправлено');
     }
 
 }
