@@ -13,5 +13,6 @@ class Ticket extends Model
     	'status',
     	'is_closed',
     	'is_viewed',
+    	'user_id',
     ];
 }
