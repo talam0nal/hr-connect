@@ -74,17 +74,15 @@
                 <table class="table">
                   <thead>
                     <tr>
-                      <th scope="col">Дата</th>
-                      <th scope="col">Тема</th>
-                      <th scope="col">Статус</th>
-                      <th scope="col">Сообщений</th>
-                      <th scope="col">Управление</th>
+                      <th>Тема</th>
+                      <th>Статус</th>
+                      <th>Сообщений</th>
+                      <th>Управление</th>
                     </tr>
                   </thead>
                   <tbody>
                     @foreach ($tickets as $ticket)
                         <tr>
-                          <th scope="row">{{ $ticket->created_at }}</th>
                           <td><a href="#">{{ $ticket->theme }}</a></td>
                           <td>@if ($ticket->status)Принята в обработку @else Ждёт обработки @endif</td>
                           <td>@mdo</td>
