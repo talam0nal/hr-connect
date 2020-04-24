@@ -47,33 +47,35 @@
             </div>
         </div>
 
-        <div class="row justify-content-center mt-3">
-            <div class="col-md-8">
-                <h2>Ваши заявки</h2>
+        @if (count($tickets))
+            <div class="row justify-content-center mt-3">
+                <div class="col-md-8">
+                    <h2>Ваши заявки</h2>
 
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th>Тема</th>
-                      <th>Статус</th>
-                      <th>Сообщений</th>
-                      <th>Управление</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @foreach ($tickets as $ticket)
+                    <table class="table">
+                      <thead>
                         <tr>
-                          <td><a href="#">{{ $ticket->theme }}</a></td>
-                          <td>@if ($ticket->status)Принята в обработку @else Ждёт обработки @endif</td>
-                          <td>@mdo</td>
-                          <td><button type="button" class="btn btn-info">Закрыть</button></td>
+                          <th>Тема</th>
+                          <th>Статус</th>
+                          <th>Сообщений</th>
+                          <th>Управление</th>
                         </tr>
-                    @endforeach
-                  </tbody>
-                </table>
+                      </thead>
+                      <tbody>
+                        @foreach ($tickets as $ticket)
+                            <tr>
+                              <td><a href="#">{{ $ticket->theme }}</a></td>
+                              <td>@if ($ticket->status)Принята в обработку @else Ждёт обработки @endif</td>
+                              <td>@mdo</td>
+                              <td><button type="button" class="btn btn-info">Закрыть заявку</button></td>
+                            </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
 
+                </div>
             </div>
-        </div>
+        @endif
 
         @else
         <div class="row justify-content-center">
