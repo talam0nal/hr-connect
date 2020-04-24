@@ -46,12 +46,12 @@
                 @csrf
                 <div class="form-group">
                     <label for="theme">Тема</label>
-                    <input name="theme" class="form-control" id="theme" placeholder="Введите тему...">
+                    <input name="theme" class="form-control" id="theme" placeholder="Введите тему..." required>
                 </div>
 
                 <div class="form-group">
                     <label for="message">Сообщение</label>
-                    <textarea name="message" class="form-control" id="message" rows="3" placeholder="Введите сообщение..."></textarea>
+                    <textarea name="message" class="form-control" id="message" rows="3" placeholder="Введите сообщение..." required></textarea>
                 </div>
 
                 <div class="form-group">
