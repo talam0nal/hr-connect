@@ -24,13 +24,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $isManager = \Auth::user()->is_manager;
-        if ($isManager) {
-            $tickets = Ticket::get();
-        } else {
-            $tickets = Ticket::where('user_id', \Auth::id())->get();
-        }
 
-        return view('home', compact('isManager', 'tickets'));
     }
 }
