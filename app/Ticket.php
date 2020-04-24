@@ -15,4 +15,10 @@ class Ticket extends Model
     	'is_viewed',
     	'user_id',
     ];
+
+    public function messages()
+    {
+        return $this->hasMany('App\Message');
+    }
+
 }
