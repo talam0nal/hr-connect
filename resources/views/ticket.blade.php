@@ -2,9 +2,39 @@
 
 @section('content')
     <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                @if (\Session::has('success'))
+                    <div class="bd-example">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {!! \Session::get('success') !!}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                    </div>
+                @endif
+            </div>
+        </div>
+    
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <h2>{{ $ticket->theme }}</h2>
+                <div class="mb-5">
+                    {{ $ticket->message }}
+                </div>
+
+                @foreach ($ticket->messages as $message)
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            {{ $message->theme }} {{ $message->user->name }}, {{ $message->created_at }}
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">{{ $message->message }}</p>
+                        </div>
+                    </div>
+                @endforeach
 
                 <!-- Форма отправки сообщения -->
                 <h4>Ответить на заявку</h4>
