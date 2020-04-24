@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    <!--
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -19,17 +20,33 @@
             </div>
         </div>
     </div>
+    -->
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-8">
+            @if (\Session::has('success'))
+                <div class="bd-example">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {!! \Session::get('success') !!}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                </div>
+            @endif
+        </div>
+    </div>
 
 
     <!-- Форма отправки заявки -->
     <div class="row justify-content-center">
         <div class="col-md-8 mt-5">
             <h2>Добавить новую заявку</h2>
-            <form method="POST" enctype="multipart/form-data" action="">
+            <form method="POST" enctype="multipart/form-data" action="{{ route('tickets.store') }}">
                 @csrf
                 <div class="form-group">
                     <label for="theme">Тема</label>
-                    <input type="theme" class="form-control" id="theme" placeholder="Введите тему...">
+                    <input name="theme" class="form-control" id="theme" placeholder="Введите тему...">
                 </div>
 
                 <div class="form-group">
