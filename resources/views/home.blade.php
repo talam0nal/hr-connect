@@ -64,9 +64,9 @@
                       <tbody>
                         @foreach ($tickets as $ticket)
                             <tr>
-                              <td><a href="#">{{ $ticket->theme }}</a></td>
+                              <td><a href="{{ route('tickets.show', $ticket->id) }}">{{ $ticket->theme }}</a></td>
                               <td>@if ($ticket->status)Принята в обработку @else Ждёт обработки @endif</td>
-                              <td>@mdo</td>
+                              <td>{{ $ticket->messages->count() }}</td>
                               <td><button type="button" class="btn btn-info">Закрыть заявку</button></td>
                             </tr>
                         @endforeach
