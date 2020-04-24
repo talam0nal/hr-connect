@@ -21,4 +21,9 @@ class Ticket extends Model
         return $this->hasMany('App\Message');
     }
 
+    public function user()
+    {
+        return $this->hasOne('App\User');
+    }
+    
 }
