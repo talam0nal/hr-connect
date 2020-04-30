@@ -137,69 +137,74 @@
         @endif
 
         @else
+
         {{-- Таблица заявок для менеджеров --}}
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <h2>Текущие заявки</h2>
-                @if (!$tickets)
+                @if (!count($tickets))
                     <div class="alert alert-success" role="alert">
                         <h4 class="alert-heading">Заявок нет</h4>
                         <p>На данный момент пользователями ещё не создано ни одной заявки</p>
                     </div>
                 @endif
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th>Тема</th>
-                      <th>Автор</th>
-                      <th>Статус</th>
-                      <th>Сообщений</th>
-                      <th>Файл</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @foreach ($tickets as $ticket)
+
+                @if (count($tickets))
+                    <table class="table">
+                      <thead>
                         <tr>
-
-                          <td>
-                            <a href="{{ route('tickets.show', $ticket->id) }}">
-                                {{ $ticket->theme }}
-                            </a>
-                          </td>
-
-                          <td>
-                            {{ $ticket->user->name }}
-                          </td>
-
-                          <td class="status-{{ $ticket->id }}">
-                            @if ($ticket->is_closed)
-                                Заявка закрыта
-                                @elseif ($ticket->status == 1)
-                                    Принята в обработку
-                                @elseif ($ticket->status == 0)
-                                    Ждёт обработки
-                            @endif
-                          </td>
-
-                          <td>
-                            {{ $ticket->messages->count() }}
-                          </td>
-
-                          <td>
-                            @if ($ticket->file)
-                                <a href="{{ Storage::url($ticket->file) }}" target="blank">
-                                    Загрузить
-                                </a>
-                                @else
-                                N/A
-                            @endif
-                            
-                          </td>
-
+                          <th>Тема</th>
+                          <th>Автор</th>
+                          <th>Статус</th>
+                          <th>Сообщений</th>
+                          <th>Файл</th>
                         </tr>
-                    @endforeach
-                  </tbody>
-                </table>
+                      </thead>
+                      <tbody>
+                        @foreach ($tickets as $ticket)
+                            <tr>
+
+                              <td>
+                                <a href="{{ route('tickets.show', $ticket->id) }}">
+                                    {{ $ticket->theme }}
+                                </a>
+                              </td>
+
+                              <td>
+                                {{ $ticket->user->name }}
+                              </td>
+
+                              <td class="status-{{ $ticket->id }}">
+                                @if ($ticket->is_closed)
+                                    Заявка закрыта
+                                    @elseif ($ticket->status == 1)
+                                        Принята в обработку
+                                    @elseif ($ticket->status == 0)
+                                        Ждёт обработки
+                                @endif
+                              </td>
+
+                              <td>
+                                {{ $ticket->messages->count() }}
+                              </td>
+
+                              <td>
+                                @if ($ticket->file)
+                                    <a href="{{ Storage::url($ticket->file) }}" target="blank">
+                                        Загрузить
+                                    </a>
+                                    @else
+                                    N/A
+                                @endif
+                                
+                              </td>
+
+                            </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                @endif
+
             </div>
         </div>
     @endif
