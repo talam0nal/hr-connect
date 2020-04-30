@@ -87,9 +87,16 @@
                               </td>
 
                               <td>
-                                -
+                                @if ($ticket->file)
+                                    <a href="{{ Storage::url($ticket->file) }}" target="blank">
+                                        Загрузить
+                                    </a>
+                                    @else
+                                    N/A
+                                @endif
+                                
                               </td>
-                              
+
                               <td>
                                 @if ($ticket->is_closed)
                                     <button type="button" class="btn btn-success close-ticket" disabled="true" style="cursor: not-allowed;">
