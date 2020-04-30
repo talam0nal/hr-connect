@@ -26,10 +26,12 @@
                 </div>
 
                 @if (\Auth::user()->is_manager)
-                    @if ($ticket->status)
-                        <button type="button" class="btn btn-success mb-3" disabled="true" style="cursor: default;">Заявка принята на выполнение</button>
-                        @else
-                        <button type="button" class="btn btn-success mb-3 apply">Принять заявку на выполнение</button>
+                    @if (!$ticket->is_closed)
+                        @if ($ticket->status)
+                            <button type="button" class="btn btn-success mb-3" disabled="true" style="cursor: default;">Заявка принята на выполнение</button>
+                            @else
+                            <button type="button" class="btn btn-success mb-3 apply">Принять заявку на выполнение</button>
+                        @endif
                     @endif
                 @endif
 
@@ -49,8 +51,6 @@
                 <div class="alert alert-danger" role="alert">
                     <h4 class="alert-heading">Заявка закрыта!</h4>
                     <p>Данная заявка закрыта пользователем</p>
-                    <hr>
-                    <p class="mb-0">Вы можете открыть новую заявку в панели управления</p>
                 </div>
                     @else
                         <!-- Форма отправки сообщения -->
