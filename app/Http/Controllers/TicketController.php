@@ -14,6 +14,7 @@ class TicketController extends Controller
     */
     public function index()
     {
+        
         if (!\Auth::check()) {
             return redirect()->route('login');
         }
