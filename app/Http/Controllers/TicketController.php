@@ -19,14 +19,40 @@ class TicketController extends Controller
             return redirect()->route('login');
         }
 
+        $filter = request()->filter;
+
         $isManager = \Auth::user()->is_manager;
         if ($isManager) {
-            $tickets = Ticket::get();
+            $tickets = $filter ? $this->filterTickets($filter) : Ticket::get();
         } else {
             $tickets = Ticket::byCurrentUser()->get();
         }
 
         return view('index', compact('isManager', 'tickets'));
+    }
+
+    private function filterTickets($filter)
+    {
+        switch ($filter) {
+            case 'viewed':
+                return Ticket::onlyViewed()->get();
+                break;
+            case 'unviewed':
+                return Ticket::onlyUnViewed()->get();
+                break;
+            case 'closed':
+                return Ticket::onlyClosed()->get();
+                break;
+            case 'unclosed':
+                return Ticket::onlyUnClosed()->get();
+                break;
+            case 'hasAnswer':
+                return Ticket::where('is_closed', 0)->get();
+                break;
+            case 'withoutAnswer':
+                return Ticket::where('is_closed', 0)->get();
+                break;
+        }
     }
 
     /**
@@ -35,7 +61,7 @@ class TicketController extends Controller
     public function store(Request $request)
     {
         if ($this->notAllowedByTime()) {
-            return redirect()->route('tickets')->with('error', __('general.per_day'));
+            return redirect()->route('main')->with('error', __('general.per_day'));
         }
         $ticket = Ticket::create([
             'theme'   => $request->theme,
@@ -43,7 +69,7 @@ class TicketController extends Controller
             'user_id' => \Auth::id(),
         ]);
         $this->saveFile($ticket);
-        return redirect()->route('tickets')->with('success', 'Ваша заявка успешно добавлена');
+        return redirect()->route('main')->with('success', 'Ваша заявка успешно добавлена');
 
     }
 
@@ -65,6 +91,7 @@ class TicketController extends Controller
     */
     private function notAllowedByTime()
     {
+        return false; //Удалить на продакшене!
         $lastTicket = Ticket::byCurrentUser()->latest()->first();
         if (!$lastTicket) {
             return false;
