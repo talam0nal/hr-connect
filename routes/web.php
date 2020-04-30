@@ -13,13 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'TicketController@index')->name('home');
+Route::get('/', 'TicketController@index')->name('main');
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('tickets', 'TicketController');
@@ -27,4 +23,5 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/closeticket/{id}', 'TicketController@closeTicket')->name('ticket.close');
 	Route::get('/applyTicket/{id}', 'TicketController@applyTicket')->name('ticket.apply');
 });
+
 
