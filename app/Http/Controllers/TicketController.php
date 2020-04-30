@@ -30,7 +30,7 @@ class TicketController extends Controller
     public function store(Request $request)
     {
         if ($this->notAllowedByTime()) {
-            return redirect()->route('tickets')->with('error', __('general.per_day'));
+            return redirect()->route('home')->with('error', __('general.per_day'));
         }
         $ticket = Ticket::create([
             'theme'   => $request->theme,
