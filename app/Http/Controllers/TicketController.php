@@ -31,6 +31,9 @@ class TicketController extends Controller
         return view('index', compact('isManager', 'tickets'));
     }
 
+    /**
+     * Отфильтровавывает заявки по выбранному параметру
+    */
     private function filterTickets($filter)
     {
         switch ($filter) {
