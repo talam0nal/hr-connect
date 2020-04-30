@@ -117,11 +117,11 @@
 
                               <td>
                                 @if ($ticket->is_closed)
-                                    <button type="button" class="btn btn-success close-ticket btn-sm" disabled="true" style="cursor: not-allowed;">
+                                    <button type="button" class="btn btn-info btn-sm close-ticket" disabled="true" style="cursor: not-allowed;">
                                         Заявка закрыта
                                     </button>
                                     @else
-                                    <button type="button" class="btn btn-info close-ticket btn-sm" data-id="{{ $ticket->id }}">
+                                    <button type="button" class="btn btn-info btn-sm close-ticket" data-id="{{ $ticket->id }}">
                                         Закрыть заявку
                                     </button>
                                 @endif
@@ -142,6 +142,14 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <h2>Текущие заявки</h2>
+                @if (count($tickets))
+                    <a href="button" class="btn btn-primary btn-sm mb-3">Просмотренные</a>
+                    <a href="button" class="btn btn-primary btn-sm mb-3">Непросмотренные</a>
+                    <a href="button" class="btn btn-primary btn-sm mb-3">Закрытые</a>
+                    <a href="button" class="btn btn-primary btn-sm mb-3">Незакрытые</a>
+                    <a href="button" class="btn btn-primary btn-sm mb-3">С ответом менеджера</a>
+                    <a href="button" class="btn btn-primary btn-sm mb-3">Без ответа менеджера</a>
+                @endif
                 @if (!count($tickets))
                     <div class="alert alert-success" role="alert">
                         <h4 class="alert-heading">Заявок нет</h4>
