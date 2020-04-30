@@ -14,6 +14,10 @@ class TicketController extends Controller
     */
     public function index()
     {
+        if (!\Auth::check()) {
+            return redirect()->route('login');
+        }
+
         $isManager = \Auth::user()->is_manager;
         if ($isManager) {
             $tickets = Ticket::get();
@@ -30,7 +34,7 @@ class TicketController extends Controller
     public function store(Request $request)
     {
         if ($this->notAllowedByTime()) {
-            return redirect()->route('home')->with('error', __('general.per_day'));
+            return redirect()->route('tickets')->with('error', __('general.per_day'));
         }
         $ticket = Ticket::create([
             'theme'   => $request->theme,
@@ -38,7 +42,7 @@ class TicketController extends Controller
             'user_id' => \Auth::id(),
         ]);
         $this->saveFile($ticket);
-        return redirect()->route('home')->with('success', 'Ваша заявка успешно добавлена');
+        return redirect()->route('tickets')->with('success', 'Ваша заявка успешно добавлена');
 
     }
 
@@ -77,6 +81,10 @@ class TicketController extends Controller
     public function show($id)
     {
         $ticket = Ticket::findOrFail($id);
+        if (\Auth::user()->is_manager) {
+            $ticket->is_viewed = 1;
+            $ticket->save();
+        }
         return view('show', compact('ticket'));
     }
 
