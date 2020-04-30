@@ -117,11 +117,11 @@
 
                               <td>
                                 @if ($ticket->is_closed)
-                                    <button type="button" class="btn btn-success close-ticket" disabled="true" style="cursor: not-allowed;">
+                                    <button type="button" class="btn btn-success close-ticket btn-sm" disabled="true" style="cursor: not-allowed;">
                                         Заявка закрыта
                                     </button>
                                     @else
-                                    <button type="button" class="btn btn-info close-ticket" data-id="{{ $ticket->id }}">
+                                    <button type="button" class="btn btn-info close-ticket btn-sm" data-id="{{ $ticket->id }}">
                                         Закрыть заявку
                                     </button>
                                 @endif
