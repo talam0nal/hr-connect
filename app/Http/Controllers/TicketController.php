@@ -37,7 +37,17 @@ class TicketController extends Controller
             'message' => nl2br($request->message),
             'user_id' => \Auth::id(),
         ]);
+        $this->saveFile($ticket);
         return redirect()->route('tickets')->with('success', 'Ваша заявка успешно добавлена');
+    }
+
+    private function saveFile(Ticket $ticket)
+    {
+        if (request()->hasFile('attachment')) {
+            $path = request()->file('attachment')->store('public/files');
+            $ticket->file = $path;
+            $ticket->save();
+        }        
     }
 
     /**
