@@ -8,11 +8,10 @@ use Carbon\Carbon;
 
 class TicketController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+     * Отображает список заявок
+    */
     public function index()
     {
         $isManager = \Auth::user()->is_manager;
@@ -26,13 +25,13 @@ class TicketController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+     * Сохраняет новую заявку
+    */
     public function store(Request $request)
     {
+        if ($this->notAllowedByTime()) {
+            return redirect()->route('tickets')->with('error', 'Вы можете создавать заявки не чаще одного раза в сутки');
+        }
         $ticket = Ticket::create([
             'theme'   => $request->theme,
             'message' => nl2br($request->message),
@@ -42,12 +41,29 @@ class TicketController extends Controller
         return redirect()->route('tickets')->with('success', 'Ваша заявка успешно добавлена');
     }
 
+    /**
+     * Сохраняет файл
+    */
     private function saveFile(Ticket $ticket)
     {
         if (request()->hasFile('attachment')) {
             $path = request()->file('attachment')->store('public/files');
             $ticket->file = $path;
             $ticket->save();
+        }
+    }
+
+    /**
+     * Если с момента подачи предыдущей заявки прошло менее суток,
+     * возвращает true
+    */
+    private function notAllowedByTime()
+    {
+        $lastTicket = Ticket::byCurrentUser()->latest()->first();
+        $now = Carbon::now();
+        $lt = Carbon::parse($lastTicket->created_at);
+        if ($now->diffInSeconds($lt) <= 86400) {
+            return true;
         }
     }
 
