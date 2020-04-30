@@ -72,7 +72,13 @@
                               </td>
 
                               <td class="status-{{ $ticket->id }}">
-                                @if ($ticket->status)Принята в обработку @else Ждёт обработки @endif
+                                @if ($ticket->is_closed)
+                                    Заявка закрыта
+                                    @elseif ($ticket->status == 1)
+                                        Принята в обработку
+                                    @elseif ($ticket->status == 0)
+                                        Ждёт обработки
+                                @endif
                               </td>
 
                               <td>
@@ -80,9 +86,15 @@
                               </td>
 
                               <td>
-                                <button type="button" class="btn btn-info close-ticket" data-id="{{ $ticket->id }}">
-                                    Закрыть заявку
-                                </button>
+                                @if ($ticket->is_closed)
+                                    <button type="button" class="btn btn-success close-ticket" disabled="true" style="cursor: not-allowed;">
+                                        Заявка закрыта
+                                    </button>
+                                    @else
+                                    <button type="button" class="btn btn-info close-ticket" data-id="{{ $ticket->id }}">
+                                        Закрыть заявку
+                                    </button>
+                                @endif
                              </td>
 
                             </tr>
