@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Ticket;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 
 class TicketController extends Controller
 {
@@ -14,7 +15,6 @@ class TicketController extends Controller
     */
     public function index()
     {
-        
         if (!\Auth::check()) {
             return redirect()->route('login');
         }
@@ -50,10 +50,18 @@ class TicketController extends Controller
                 return Ticket::onlyUnClosed()->get();
                 break;
             case 'hasAnswer':
-                return Ticket::where('is_closed', 0)->get();
+                return Ticket::whereHas('messages', function (Builder $query) {
+                        $query->whereHas('user', function(Builder $q) {
+                            $q->where('is_manager', 1);
+                        });
+                   })->get();
                 break;
             case 'withoutAnswer':
-                return Ticket::where('is_closed', 0)->get();
+                return Ticket::whereHas('messages', function (Builder $query) {
+                        $query->whereHas('user', function(Builder $q) {
+                            $q->where('is_manager', 0);
+                        });
+                   })->get();
                 break;
         }
     }
