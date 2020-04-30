@@ -3,6 +3,7 @@
 @section('content')
 <div class="container">
 
+    {{-- Панель для отображение успешных эвентов --}}
     <div class="row justify-content-center">
         <div class="col-md-8">
             @if (\Session::has('success'))
@@ -18,8 +19,24 @@
         </div>
     </div>
 
+    {{-- Панель для отображения ошибок --}}
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            @if (\Session::has('error'))
+                <div class="bd-example">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {!! \Session::get('error') !!}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                </div>
+            @endif
+        </div>
+    </div>
+
     @if (!$isManager)
-        <!-- Форма отправки заявки -->
+        {{-- Форма отправки заявки --}}
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <h2>Добавить новую заявку</h2>
@@ -47,6 +64,7 @@
             </div>
         </div>
 
+        {{-- Таблица с заявками --}}
         @if (count($tickets))
             <div class="row justify-content-center mt-3">
                 <div class="col-md-8">
@@ -130,6 +148,7 @@
 </div>
 
 <script>
+
     $(function() {
         $('.close-ticket').click(function() {
             var btn = $(this);
@@ -142,5 +161,6 @@
             });
         });
     });
+    
 </script>
 @endsection
