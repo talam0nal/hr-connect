@@ -1,1 +1,5 @@
-Пользователь {{ $user->name }} оставил новую заявку с темой <a href="{{ route('tickets.show', $ticket->id) }}">«{{ $ticket->theme }}»</a>
+Пользователь {{ $user->name }} оставил новую заявку с темой <a href="{{ route('tickets.show', $ticket->id) }}">«{{ $ticket->theme }}»</a><br>
+@if ($ticket->message)
+    Сообщение пользователя:<br>
+    {{ $ticket->message }}
+@endif
