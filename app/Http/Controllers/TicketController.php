@@ -38,7 +38,8 @@ class TicketController extends Controller
             'user_id' => \Auth::id(),
         ]);
         $this->saveFile($ticket);
-        return redirect()->route('tickets')->with('success', __('general.success'));
+        return redirect()->route('home')->with('success', 'Ваша заявка успешно добавлена');
+
     }
 
     /**
