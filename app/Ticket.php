@@ -25,5 +25,10 @@ class Ticket extends Model
     {
         return $this->hasOne('App\User');
     }
+
+    public function scopeByCurrentUser($query)
+    {
+        return $query->where('user_id', \Auth::id());
+    }    
     
 }

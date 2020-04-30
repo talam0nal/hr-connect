@@ -19,7 +19,7 @@ class TicketController extends Controller
         if ($isManager) {
             $tickets = Ticket::get();
         } else {
-            $tickets = Ticket::where('user_id', \Auth::id())->get();
+            $tickets = Ticket::byCurrentUser()->get();
         }
 
         return view('index', compact('isManager', 'tickets'));
