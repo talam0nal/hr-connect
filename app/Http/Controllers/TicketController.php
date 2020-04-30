@@ -36,7 +36,7 @@ class TicketController extends Controller
     }
 
     /**
-     * Отфильтровавывает заявки по выбранному параметру
+     * Отфильтровывает заявки по выбранному параметру
     */
     private function filterTickets($filter)
     {
