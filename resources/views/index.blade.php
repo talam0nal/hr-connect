@@ -143,6 +143,7 @@
             <div class="col-md-8">
                 <h2>Текущие заявки</h2>
                 @if (count($tickets))
+                    <a href="{{ route('main') }}" class="btn btn-primary btn-sm mb-3">Все</a>
                     <a href="{{ route('main', ['filter' => 'viewed']) }}" class="btn btn-primary btn-sm mb-3">Просмотренные</a>
                     <a href="{{ route('main', ['filter' => 'unviewed']) }}" class="btn btn-primary btn-sm mb-3">Непросмотренные</a>
                     <a href="{{ route('main', ['filter' => 'closed']) }}" class="btn btn-primary btn-sm mb-3">Закрытые</a>
