@@ -30,7 +30,7 @@ class TicketController extends Controller
     public function store(Request $request)
     {
         if ($this->notAllowedByTime()) {
-            return redirect()->route('tickets')->with('error', 'Вы можете создавать заявки не чаще одного раза в сутки');
+            return redirect()->route('tickets')->with('error', __('general.per_day'));
         }
         $ticket = Ticket::create([
             'theme'   => $request->theme,
@@ -38,7 +38,7 @@ class TicketController extends Controller
             'user_id' => \Auth::id(),
         ]);
         $this->saveFile($ticket);
-        return redirect()->route('tickets')->with('success', 'Ваша заявка успешно добавлена');
+        return redirect()->route('tickets')->with('success', __('general.success'));
     }
 
     /**
@@ -68,27 +68,12 @@ class TicketController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+     * Отображает заявку
+    */
     public function show($id)
     {
         $ticket = Ticket::findOrFail($id);
         return view('show', compact('ticket'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     public function closeTicket($id)
