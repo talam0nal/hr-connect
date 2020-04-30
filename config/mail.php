@@ -36,11 +36,11 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+            'host' => env('MAIL_HOST', 'smtp.gmail.com'),
             'port' => env('MAIL_PORT', 587),
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => 'talam0nal@gmail.com',
-            'password' => '18352566mailL',
+            'username' => 'andreiakhremenkov@gmail.com',
+            'password' => 'csxdcrczuibemnty',
             'timeout' => null,
         ],
 
@@ -83,8 +83,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'no-reply@hr-connect.ru'),
-        'name' => env('MAIL_FROM_NAME', 'HR-Connect'),
+        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+        'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
     /*

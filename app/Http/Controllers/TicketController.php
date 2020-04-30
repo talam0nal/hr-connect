@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Ticket;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NewTicket;
+use App\Mail\CloseTicket;
+use App\User;
 
 class TicketController extends Controller
 {
@@ -80,8 +84,15 @@ class TicketController extends Controller
             'user_id' => \Auth::id(),
         ]);
         $this->saveFile($ticket);
+        $this->newTicketNotification($ticket);
         return redirect()->route('main')->with('success', __('general.success'));
 
+    }
+
+    private function newTicketNotification($ticket)
+    {
+        $manager = User::isManager()->first();
+        Mail::to($manager->email)->send(new NewTicket($ticket, \Auth::user()));
     }
 
     /**
@@ -135,7 +146,14 @@ class TicketController extends Controller
         $ticket = Ticket::findOrFail($id);
         $ticket->is_closed = 1;
         $ticket->save();
+        $this->closeTicketNotification($ticket);
         return response()->json(['message' => 'Ticket is closed']);
+    }
+
+    private function closeTicketNotification(Ticket $ticket)
+    {
+        $manager = User::isManager()->first();
+        Mail::to($manager->email)->send(new CloseTicket($ticket, \Auth::user()));        
     }
 
     /**

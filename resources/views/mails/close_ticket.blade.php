@@ -1,0 +1,1 @@
+Пользователь {{ $user->name }} закрыл заявку с темой <a href="{{ route('tickets.show', $ticket->id) }}">«{{ $ticket->theme }}»</a>
