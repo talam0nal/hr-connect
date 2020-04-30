@@ -163,6 +163,6 @@ class TicketController extends Controller
         $ticket = Ticket::findOrFail($id);
         $ticket->status = 1;
         $ticket->save();
-        return response()->json(['message' => 'Ticket is proccess']);
+        return response()->json(['message' => 'Ticket in proccess']);
     }
 }
