@@ -19,4 +19,9 @@ class Message extends Model
         return $this->hasOne('App\User', 'id', 'user_id');
     }
 
+    public function ticket()
+    {
+        return $this->hasOne('App\Ticket', 'id', 'ticket_id');
+    }
+
 }

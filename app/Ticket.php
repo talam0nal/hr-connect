@@ -46,7 +46,6 @@ class Ticket extends Model
         return $query->where('is_closed', 1);
     }
 
-
     public function scopeOnlyUnClosed($query)
     {
         return $query->where('is_closed', 0);
