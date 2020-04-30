@@ -163,7 +163,6 @@
                       <thead>
                         <tr>
                           <th>Тема</th>
-                          <th>Автор</th>
                           <th>Статус</th>
                           <th>Сообщений</th>
                           <th>Файл</th>
@@ -177,10 +176,6 @@
                                 <a href="{{ route('tickets.show', $ticket->id) }}">
                                     {{ $ticket->theme }}
                                 </a>
-                              </td>
-
-                              <td>
-                                {{ $ticket->user->name }}
                               </td>
 
                               <td class="status-{{ $ticket->id }}">
