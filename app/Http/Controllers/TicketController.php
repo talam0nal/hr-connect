@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Ticket;
+use Carbon\Carbon;
 
 class TicketController extends Controller
 {
@@ -47,7 +48,7 @@ class TicketController extends Controller
             $path = request()->file('attachment')->store('public/files');
             $ticket->file = $path;
             $ticket->save();
-        }        
+        }
     }
 
     /**
