@@ -113,7 +113,6 @@ class TicketController extends Controller
     */
     private function notAllowedByTime()
     {
-        return false; //Удалить на продакшене!
         $lastTicket = Ticket::byCurrentUser()->latest()->first();
         if (!$lastTicket) {
             return false;
