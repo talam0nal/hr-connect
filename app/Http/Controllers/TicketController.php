@@ -61,6 +61,9 @@ class TicketController extends Controller
     private function notAllowedByTime()
     {
         $lastTicket = Ticket::byCurrentUser()->latest()->first();
+        if (!$lastTicket) {
+            return false;
+        }
         $now = Carbon::now();
         $lt = Carbon::parse($lastTicket->created_at);
         if ($now->diffInSeconds($lt) <= 86400) {
