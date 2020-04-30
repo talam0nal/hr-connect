@@ -64,10 +64,27 @@
                       <tbody>
                         @foreach ($tickets as $ticket)
                             <tr>
-                              <td><a href="{{ route('tickets.show', $ticket->id) }}">{{ $ticket->theme }}</a></td>
-                              <td>@if ($ticket->status)Принята в обработку @else Ждёт обработки @endif</td>
-                              <td>{{ $ticket->messages->count() }}</td>
-                              <td><button type="button" class="btn btn-info">Закрыть заявку</button></td>
+
+                              <td>
+                                <a href="{{ route('tickets.show', $ticket->id) }}">
+                                    {{ $ticket->theme }}
+                                </a>
+                              </td>
+
+                              <td class="status-{{ $ticket->id }}">
+                                @if ($ticket->status)Принята в обработку @else Ждёт обработки @endif
+                              </td>
+
+                              <td>
+                                {{ $ticket->messages->count() }}
+                              </td>
+
+                              <td>
+                                <button type="button" class="btn btn-info close-ticket" data-id="{{ $ticket->id }}">
+                                    Закрыть заявку
+                                </button>
+                             </td>
+
                             </tr>
                         @endforeach
                       </tbody>
@@ -87,4 +104,19 @@
 
 
 </div>
+
+<script>
+    $(function() {
+        $('.close-ticket').click(function() {
+            var btn = $(this);
+            let id = btn.data('id');
+            let destination = '/closeticket/'+id;
+            $.get(destination, function(data) {
+                btn.text('Заявка закрыта');
+                btn.removeClass('btn-info').addClass('btn-success').attr('disabled', 'true').css({'cursor': 'not-allowed'});
+                $('.status-'+id).text('Заявка закрыта');
+            });
+        });
+    });
+</script>
 @endsection

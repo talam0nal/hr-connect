@@ -74,4 +74,12 @@ class TicketController extends Controller
     {
         //
     }
+
+    public function closeTicket($id)
+    {
+        $ticket = Ticket::findOrFail($id);
+        $ticket->is_closed = 1;
+        $ticket->save();
+        return response()->json(['message' => 'Ticket is closed']);
+    }
 }

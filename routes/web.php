@@ -24,5 +24,6 @@ Route::get('/home', 'TicketController@index')->name('home');
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('tickets', 'TicketController');
 	Route::resource('messages', 'MessageController');
+	Route::get('/closeticket/{id}', 'TicketController@closeTicket')->name('ticket.close');
 });
 
