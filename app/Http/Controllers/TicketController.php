@@ -80,11 +80,25 @@ class TicketController extends Controller
         return view('show', compact('ticket'));
     }
 
+    /**
+     * Закрывает заявку
+    */
     public function closeTicket($id)
     {
         $ticket = Ticket::findOrFail($id);
         $ticket->is_closed = 1;
         $ticket->save();
         return response()->json(['message' => 'Ticket is closed']);
+    }
+
+    /**
+     * Меняет статус заявки на "Принято к выполнению"
+    */
+    public function applyTicket($id)
+    {
+        $ticket = Ticket::findOrFail($id);
+        $ticket->status = 1;
+        $ticket->save();
+        return response()->json(['message' => 'Ticket is proccess']);
     }
 }

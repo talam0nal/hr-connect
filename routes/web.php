@@ -25,5 +25,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('tickets', 'TicketController');
 	Route::resource('messages', 'MessageController');
 	Route::get('/closeticket/{id}', 'TicketController@closeTicket')->name('ticket.close');
+	Route::get('/applyTicket/{id}', 'TicketController@applyTicket')->name('ticket.apply');
 });
 

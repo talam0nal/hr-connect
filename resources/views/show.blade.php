@@ -25,10 +25,18 @@
                     {{ $ticket->message }}
                 </div>
 
+                @if (\Auth::user()->is_manager)
+                    @if ($ticket->status)
+                        <button type="button" class="btn btn-success mb-3" disabled="true" style="cursor: default;">Заявка принята на выполнение</button>
+                        @else
+                        <button type="button" class="btn btn-success mb-3 apply">Принять заявку на выполнение</button>
+                    @endif
+                @endif
+
                 @foreach ($ticket->messages as $message)
                     <div class="card mb-3">
                         <div class="card-header">
-                            {{ $message->theme }} {{ $message->user->name }}, {{ $message->created_at }}
+                            {{ $message->theme }} @if ($message->user->is_manager)<b style="cursor: help;" title="Менеджер">@endif{{ $message->user->name }}@if ($message->user->is_manager)</b>@endif, {{ $message->created_at }}
                         </div>
                         <div class="card-body">
                             <p class="card-text">{{ $message->message }}</p>
@@ -73,5 +81,18 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(function() {
+            $('.apply').click(function() {
+                var btn = $(this);
+                let destination = '{{ route('ticket.apply', $ticket->id) }}';
+                $.get(destination, function(data) {
+                    btn.text('Заявка принята на выполнение');
+                    btn.attr('disabled', 'true').css({'cursor': 'default'});
+                });
+            });
+        });
+    </script>
 
 @endsection
