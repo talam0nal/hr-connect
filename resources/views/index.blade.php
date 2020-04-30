@@ -143,12 +143,12 @@
             <div class="col-md-8">
                 <h2>Текущие заявки</h2>
                 @if (count($tickets))
-                    <a href="button" class="btn btn-primary btn-sm mb-3">Просмотренные</a>
-                    <a href="button" class="btn btn-primary btn-sm mb-3">Непросмотренные</a>
-                    <a href="button" class="btn btn-primary btn-sm mb-3">Закрытые</a>
-                    <a href="button" class="btn btn-primary btn-sm mb-3">Незакрытые</a>
-                    <a href="button" class="btn btn-primary btn-sm mb-3">С ответом менеджера</a>
-                    <a href="button" class="btn btn-primary btn-sm mb-3">Без ответа менеджера</a>
+                    <a href="{{ route('main', ['filter' => 'viewed']) }}" class="btn btn-primary btn-sm mb-3">Просмотренные</a>
+                    <a href="{{ route('main', ['filter' => 'unviewed']) }}" class="btn btn-primary btn-sm mb-3">Непросмотренные</a>
+                    <a href="{{ route('main', ['filter' => 'closed']) }}" class="btn btn-primary btn-sm mb-3">Закрытые</a>
+                    <a href="{{ route('main', ['filter' => 'unclosed']) }}" class="btn btn-primary btn-sm mb-3">Незакрытые</a>
+                    <a href="{{ route('main', ['filter' => 'hasAnswer']) }}" class="btn btn-primary btn-sm mb-3">С ответом менеджера</a>
+                    <a href="{{ route('main', ['filter' => 'withoutAnswer']) }}" class="btn btn-primary btn-sm mb-3">Без ответа менеджера</a>
                 @endif
                 @if (!count($tickets))
                     <div class="alert alert-success" role="alert">
