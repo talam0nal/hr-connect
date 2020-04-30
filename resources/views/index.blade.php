@@ -58,6 +58,7 @@
                           <th>Тема</th>
                           <th>Статус</th>
                           <th>Сообщений</th>
+                          <th>Файл</th>
                           <th>Управление</th>
                         </tr>
                       </thead>
@@ -85,6 +86,10 @@
                                 {{ $ticket->messages->count() }}
                               </td>
 
+                              <td>
+                                -
+                              </td>
+                              
                               <td>
                                 @if ($ticket->is_closed)
                                     <button type="button" class="btn btn-success close-ticket" disabled="true" style="cursor: not-allowed;">
