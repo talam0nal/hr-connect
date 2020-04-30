@@ -37,7 +37,7 @@ class TicketController extends Controller
             'message' => nl2br($request->message),
             'user_id' => \Auth::id(),
         ]);
-        return redirect()->route('home')->with('success', 'Ваша заявка успешно добавлена');
+        return redirect()->route('tickets')->with('success', 'Ваша заявка успешно добавлена');
     }
 
     /**
